@@ -45,4 +45,20 @@ public class InputFrame {
             api.sendCommand(thing);
         }
     }
+
+    public boolean isxPlus() {
+        return xPlus;
+    }
+
+    public boolean isxMinus() {
+        return xMinus;
+    }
+
+    public boolean isyPlus() {
+        return yPlus;
+    }
+
+    public boolean isyMinus() {
+        return yMinus;
+    }
 }

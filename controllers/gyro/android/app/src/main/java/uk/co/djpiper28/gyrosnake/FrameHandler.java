@@ -34,7 +34,7 @@ public class FrameHandler implements Runnable {
         try {
             return this.frameQueue.remove();
         } catch(Exception nothingQueueInQueueProbably) {
-            nothingQueueInQueueProbably.printStackTrace();
+            //nothingQueueInQueueProbably.printStackTrace();
         }
 
         return null;
