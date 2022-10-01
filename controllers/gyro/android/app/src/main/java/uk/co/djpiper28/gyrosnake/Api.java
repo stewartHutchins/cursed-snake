@@ -52,7 +52,7 @@ public class Api {
 
     public void sendCommand(MovementTypes movement) throws IOException {
         final String ipAddress = ipToBroadcast(this.getIpAddress());
-        Connection conn = Jsoup.connect(ipAddress + ":" + PORT);
+        Connection conn = Jsoup.connect("http://" + ipAddress + ":" + PORT);
         conn.data(movement.getMovementStr());
         conn.post();
     }

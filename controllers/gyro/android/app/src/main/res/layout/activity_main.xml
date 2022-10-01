@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,15 +16,69 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/snake" />
 
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/anchor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background" />
+
+    <ImageView
+        android:id="@+id/up"
+        android:layout_width="86dp"
+        android:layout_height="113dp"
+        app:layout_constraintBottom_toTopOf="@+id/hintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/down"
+        android:layout_width="86dp"
+        android:layout_height="113dp"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hintText"
+        app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/right"
+        android:layout_width="86dp"
+        android:layout_height="113dp"
+        app:layout_constraintBottom_toBottomOf="@+id/hintText"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintStart_toEndOf="@+id/anchor"
+        app:layout_constraintTop_toTopOf="@+id/hintText"
+        android:rotation="90"
+        app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/left"
+        android:layout_width="86dp"
+        android:layout_height="113dp"
+        app:layout_constraintBottom_toBottomOf="@+id/hintText"
+        app:layout_constraintEnd_toStartOf="@+id/anchor"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/hintText"
+        android:rotation="-90"
+        app:srcCompat="@drawable/arrow" />
+
+    <TextView
+        android:id="@+id/hintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rotate your phone"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
