@@ -42,15 +42,16 @@ def _initialize(initial_snake: Snake, initial_food: Coordinate, *, ax) -> plt.Ax
     return ax
 
 
-def gui(frames: Iterator[tuple[Snake, Food]]) -> None:
+def gui(frames: Iterable[tuple[Snake, Food]]) -> None:
     fig, ax = plt.subplots()
 
     update: Callable[[tuple[Snake, Food]], plt.Axes] = lambda tup: draw_board(tup[0], tup[1], ax=ax)
-    initial_snake, initial_food = next(frames)
+    frames_iterator = iter(frames)
+    initial_snake, initial_food = next(frames_iterator)
 
     animate = FuncAnimation(
         fig,
-        func=lambda frame, *fargs: update(next(frames)),
+        func=lambda frame, *fargs: update(next(frames_iterator)),
         init_func=lambda: _initialize(initial_snake, initial_food, ax=ax),
         interval=_INTERVAL
     )
