@@ -16,9 +16,11 @@ public class Api {
     private static final int PORT = 6969;
     private final static String TAG = "DEBUG";
     private Context context;
+    private int ipExt;
 
     public Api(Context context) {
         this.context = context;
+        this.ipExt = 255;
 
         this.getIpAddress(); // This is to sanity check
     }
@@ -31,7 +33,7 @@ public class Api {
         return ipAddress;
     }
 
-    public static String ipToBroadcast(String ipAddr) {
+    public String ipToBroadcast(String ipAddr) {
         StringBuilder strb = new StringBuilder();
 
         int dots = 0;
@@ -46,7 +48,7 @@ public class Api {
             }
         }
 
-        strb.append("7");
+        strb.append(String.valueOf(this.ipExt));
         return strb.toString();
     }
 
@@ -57,4 +59,7 @@ public class Api {
         conn.post();
     }
 
+    public void setIpExt(int ipExt) {
+        this.ipExt = ipExt;
+    }
 }
