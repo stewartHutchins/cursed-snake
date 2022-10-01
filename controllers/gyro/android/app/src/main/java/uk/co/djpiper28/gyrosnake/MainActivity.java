@@ -12,7 +12,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import uk.co.djpiper28.gyrosnake.vectmaths.VectorMaths;
@@ -20,9 +23,10 @@ import uk.co.djpiper28.gyrosnake.vectmaths.VectorMaths;
 public class MainActivity extends AppCompatActivity implements Runnable {
     private static final String TAG = "DEBUG";
     private static final long POLL_TIME = 1000 / 60;
-    private static final double TRIGGER_ANGLE_X_RAD = Math.PI * 2d * (20d / 360d);
-    private static final double TRIGGER_ANGLE_Y_RAD = Math.PI * 2d * (10d / 360d);
+    private static final double TRIGGER_ANGLE_X = 20d;
+    private static final double TRIGGER_ANGLE_Y = TRIGGER_ANGLE_X;
     private static final int PERMISSION_REQUEST_CODE = 180;
+    private static final int DEFAULT_IP_EXT = 7;
     private FrameHandler frameHandler;
     private Api api;
     private SensorManager sensorManager;
@@ -39,6 +43,18 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         this.api = new Api(this.getApplicationContext());
         this.frameHandler = new FrameHandler(this.api);
         this.lastTransmission = 0;
+
+        EditText edit = this.findViewById(R.id.ipEdit);
+        edit.setText(String.valueOf(DEFAULT_IP_EXT));
+        this.api.setIpExt(DEFAULT_IP_EXT);
+
+        edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                api.setIpExt(Integer.valueOf(edit.getText().toString()));
+                return true;
+            }
+        });
 
         this.requestPermissions(new String[] { HIGH_SAMPLING_RATE_SENSORS }, PERMISSION_REQUEST_CODE);
         this.requestPermissions(new String[] { WIFI_AWARE_SERVICE }, PERMISSION_REQUEST_CODE + 1);
@@ -78,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                         break;
                     }
 
-                    this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
+                    this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
                     if (this.sensor == null) {
                         Log.e(TAG, "onCreate: Cannot get sensor");
                         Toast.makeText(this.getApplicationContext(), "Cannot get sensor", Toast.LENGTH_LONG).show();
@@ -94,15 +110,15 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                         @Override
                         public void onSensorChanged(SensorEvent event) {
                             float[] values = event.values;
-                            float xAngle = VectorMaths.getXAngle(values);
-                            float yAngle = VectorMaths.getYAngle(values);
+                            float xAngle = values[2];
+                            float yAngle = -values[1];
 
-                            if (Math.abs(xAngle) >= TRIGGER_ANGLE_X_RAD) {
+                            if (Math.abs(xAngle) >= TRIGGER_ANGLE_X) {
                                 if (xAngle < 0) currentFrame.addInput(MovementTypes.X_PLUS);
                                 else currentFrame.addInput(MovementTypes.X_MINUS);
                             }
 
-                            if (Math.abs(yAngle) >= TRIGGER_ANGLE_Y_RAD) {
+                            if (Math.abs(yAngle) >= TRIGGER_ANGLE_Y) {
                                 if (yAngle < 0) currentFrame.addInput(MovementTypes.Y_PLUS);
                                 else currentFrame.addInput(MovementTypes.Y_MINUS);
                             }
