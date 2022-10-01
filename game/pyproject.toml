@@ -11,7 +11,8 @@ description = "A very cursed game of snake"
 readme = "README.md"
 
 dependencies = [
-    "matplotlib==3.6.0"
+    "matplotlib==3.6.0",
+    "Flask==2.2.2"
 ]
 
 [project.optional-dependencies]
