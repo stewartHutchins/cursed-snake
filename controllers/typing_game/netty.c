@@ -5,7 +5,7 @@
 
 int transmit_movement(config_t config, movement_t movement)
 {
-  const char *str = movement_to_str(movement);
+    const char *str = movement_to_str(movement);
     CURL *curl = curl_easy_init();
     if(curl) {
         CURLcode res;
