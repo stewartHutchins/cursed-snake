@@ -44,7 +44,7 @@ static char *read_next_word(FILE *f)
 config_t get_config()
 {
     config_t ret;
-    ret.connection_string = "http://192.168.3.7:6969";
+    ret.connection_string = "http://192.168.3.22:6969";
     ret.words = malloc(sizeof(*ret.words));
     ret.words_size = 0;
 
