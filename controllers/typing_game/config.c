@@ -50,8 +50,8 @@ config_t get_config()
 
     FILE *f = fopen(SCRIPT, "r");
     if (f == NULL) {
-      puts("Error, no bee movie script.txt");
-      exit(1);
+        puts("Error, no bee movie script.txt");
+        exit(1);
     }
 
     for (char *word; word = read_next_word(f), word != NULL; ret.words_size++) {
