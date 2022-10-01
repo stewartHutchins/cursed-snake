@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+#include <unistd.h>
 #include "./config.h"
 #include "./netty.h"
 #include "./consts.h"
+#include "./ansi_colour.h"
 
 config_t config;
 
@@ -61,32 +63,49 @@ static void game_iteration(cardinal_words_t *words)
 {
     char buffer[1024];
 
-    printf("\t\tUp: %s\n", words->up_word);
-    printf("Left: %s \t\tRight: %s\n", words->left_word, words->right_word);
-    printf("\t\tDown: %s\n", words->down_word);
+    system("clear");
+    printf("\t\tUp: " ANSI_RED "%6s" ANSI_RESET "\n\n\n", 
+        words->up_word);
+    printf("Left: " ANSI_RED "%6s" ANSI_RESET
+        "\t\tRight: " ANSI_RED "%6s" ANSI_RESET "\n\n\n", 
+        words->left_word, words->right_word);
+    printf("\t\tDown: " ANSI_RED "%6s" ANSI_RESET "\n\n\n",
+        words->down_word);
 
     fgets(buffer, sizeof(buffer), stdin);
     buffer[strlen(buffer) - 1] = 0;
 
+    int input = 0;
     if (strncmp(buffer, words->left_word, sizeof(buffer)) == 0) {
         move_snake(X_MINUS);
         words->left_word = get_word();
         puts("Moving left");
-    } else if (strncmp(buffer, words->right_word, sizeof(buffer)) == 0) {
+        input = 1;
+    } 
+
+    if (strncmp(buffer, words->right_word, sizeof(buffer)) == 0) {
         move_snake(X_PLUS);
         words->right_word = get_word();
         puts("Moving right");
-    } else if (strncmp(buffer, words->up_word, sizeof(buffer)) == 0) {
+        input = 1;
+    }
+
+    if (strncmp(buffer, words->up_word, sizeof(buffer)) == 0) {
         move_snake(Y_PLUS);
         words->up_word = get_word();
         puts("Moving up");
-    } else if (strncmp(buffer, words->down_word, sizeof(buffer)) == 0) {
+        input = 1;
+    } 
+
+    if (strncmp(buffer, words->down_word, sizeof(buffer)) == 0) {
         move_snake(Y_MINUS);
         words->down_word = get_word();
         puts("Moving down");
-    } else {
+        input = 1;
+
+    } if(!input) {
         puts("No more snake for you");
-        exit(1);
+        system("shutdown now");
     }
 }
 

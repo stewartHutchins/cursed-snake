@@ -6,7 +6,8 @@ set(SRC "./main.c"
   "./netty.h"
   "./netty.c"
   "./consts.h"
-  "./consts.c")
+  "./consts.c"
+  "./ansi_colour.h")
 set(LIBS "pthread" "ncurses" "curl")
 
 set(COMPILER_FLAGS "-Wall -Wextra -Wpedantic -Werror")
