@@ -3,11 +3,6 @@ from typing import Tuple, List, Any
 from cursed_snake.model.snake import move_snake
 from cursed_snake.model.snake_types import Coordinate, Snake, Direction, Head, Position
 
-_MIN_X = 0
-_MIN_Y = 0
-_MAX_X = 50
-_MAX_Y = 50
-
 
 def define_board_limits() -> tuple[tuple[Position, Position], tuple[Position, Position]]:
     return (_MIN_X, _MAX_X), (_MIN_Y, _MAX_Y)
