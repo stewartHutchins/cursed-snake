@@ -54,7 +54,7 @@ public class FrameHandler implements Runnable {
                 try {
                     frame.transmitFrame(this.api);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         }
