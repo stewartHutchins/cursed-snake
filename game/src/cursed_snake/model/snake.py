@@ -1,6 +1,6 @@
 from cursed_snake.model.directions import west
 
-from cursed_snake.model.snake_types import Snake, Coordinate, Direction, Head
+from cursed_snake.model.snake_types import Snake, Coordinate, Direction
 from itertools import accumulate
 
 _STARTING_LENGTH: int = 3

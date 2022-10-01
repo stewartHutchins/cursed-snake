@@ -7,5 +7,5 @@ Head: TypeAlias = Coordinate
 Tail: TypeAlias = list[Coordinate]
 Snake: TypeAlias = (Head, Tail)
 
-Pellet: TypeAlias = Coordinate
+Food: TypeAlias = Coordinate
 Direction = Callable[[Coordinate], Coordinate]
