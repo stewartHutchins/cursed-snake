@@ -46,14 +46,14 @@ public class Api {
             }
         }
 
-        strb.append("255");
+        strb.append("7");
         return strb.toString();
     }
 
     public void sendCommand(MovementTypes movement) throws IOException {
         final String ipAddress = ipToBroadcast(this.getIpAddress());
         Connection conn = Jsoup.connect("http://" + ipAddress + ":" + PORT);
-        conn.data(movement.getMovementStr());
+        conn.requestBody(movement.getMovementStr());
         conn.post();
     }
 
