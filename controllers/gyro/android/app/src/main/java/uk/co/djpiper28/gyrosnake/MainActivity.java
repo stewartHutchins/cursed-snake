@@ -12,7 +12,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import uk.co.djpiper28.gyrosnake.vectmaths.VectorMaths;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     private static final double TRIGGER_ANGLE_X = 20d;
     private static final double TRIGGER_ANGLE_Y = TRIGGER_ANGLE_X;
     private static final int PERMISSION_REQUEST_CODE = 180;
+    private static final int DEFAULT_IP_EXT = 7;
     private FrameHandler frameHandler;
     private Api api;
     private SensorManager sensorManager;
@@ -39,6 +43,18 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         this.api = new Api(this.getApplicationContext());
         this.frameHandler = new FrameHandler(this.api);
         this.lastTransmission = 0;
+
+        EditText edit = this.findViewById(R.id.ipEdit);
+        edit.setText(String.valueOf(DEFAULT_IP_EXT));
+        this.api.setIpExt(DEFAULT_IP_EXT);
+
+        edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                api.setIpExt(Integer.valueOf(edit.getText().toString()));
+                return true;
+            }
+        });
 
         this.requestPermissions(new String[] { HIGH_SAMPLING_RATE_SENSORS }, PERMISSION_REQUEST_CODE);
         this.requestPermissions(new String[] { WIFI_AWARE_SERVICE }, PERMISSION_REQUEST_CODE + 1);
