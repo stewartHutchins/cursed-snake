@@ -15,8 +15,8 @@ def east(coord: Coordinate) -> Coordinate:
 
 
 def north(coord: Coordinate) -> Coordinate:
-    return _offset(coord, 0, -1)
+    return _offset(coord, 0, +1)
 
 
 def south(coord: Coordinate) -> Coordinate:
-    return _offset(coord, 0, +1)
+    return _offset(coord, 0, -1)
