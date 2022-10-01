@@ -20,7 +20,8 @@ import uk.co.djpiper28.gyrosnake.vectmaths.VectorMaths;
 public class MainActivity extends AppCompatActivity implements Runnable {
     private static final String TAG = "DEBUG";
     private static final long POLL_TIME = 1000 / 60;
-    private static final double TRIGGER_ANGLE_RAD = Math.PI * 2d * (20d / 360d);
+    private static final double TRIGGER_ANGLE_X_RAD = Math.PI * 2d * (20d / 360d);
+    private static final double TRIGGER_ANGLE_Y_RAD = Math.PI * 2d * (10d / 360d);
     private static final int PERMISSION_REQUEST_CODE = 180;
     private FrameHandler frameHandler;
     private Api api;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                         break;
                     }
 
-                    this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+                    this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
                     if (this.sensor == null) {
                         Log.e(TAG, "onCreate: Cannot get sensor");
                         Toast.makeText(this.getApplicationContext(), "Cannot get sensor", Toast.LENGTH_LONG).show();
@@ -96,16 +97,12 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                             float xAngle = VectorMaths.getXAngle(values);
                             float yAngle = VectorMaths.getYAngle(values);
 
-                            //Log.d(TAG, "onTrigger: x" + xAngle);
-                            //Log.d(TAG, "onTrigger: y" + yAngle);
-                            //Log.d(TAG, "onTrigger: target " + TRIGGER_ANGLE_RAD);
-
-                            if (Math.abs(xAngle) >= TRIGGER_ANGLE_RAD) {
+                            if (Math.abs(xAngle) >= TRIGGER_ANGLE_X_RAD) {
                                 if (xAngle < 0) currentFrame.addInput(MovementTypes.X_PLUS);
                                 else currentFrame.addInput(MovementTypes.X_MINUS);
                             }
 
-                            if (Math.abs(yAngle) >= TRIGGER_ANGLE_RAD) {
+                            if (Math.abs(yAngle) >= TRIGGER_ANGLE_Y_RAD) {
                                 if (yAngle < 0) currentFrame.addInput(MovementTypes.Y_PLUS);
                                 else currentFrame.addInput(MovementTypes.Y_MINUS);
                             }

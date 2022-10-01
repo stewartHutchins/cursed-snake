@@ -26,7 +26,7 @@ public class VectorMaths {
         float aDotB = vect[0];
         float modAModB = abs(vect);
 
-        return (float) (Math.acos(aDotB/modAModB) - Math.PI / 2);
+        return (float) (Math.PI - Math.acos(aDotB/modAModB) - Math.PI / 2);
     }
 
     public static float abs(float []vect) {
