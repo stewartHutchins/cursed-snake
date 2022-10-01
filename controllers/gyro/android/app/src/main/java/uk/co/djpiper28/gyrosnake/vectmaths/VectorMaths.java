@@ -23,7 +23,7 @@ public class VectorMaths {
         // a = [ x, y , z]
         // b = [ 0, 1, 0]
 
-        float aDotB = vect[2] + vect[0];
+        float aDotB = vect[0];
         float modAModB = abs(vect);
 
         return (float) (Math.PI - Math.acos(aDotB/modAModB) - Math.PI / 2);
