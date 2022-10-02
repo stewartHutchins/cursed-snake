@@ -14,7 +14,7 @@ from cursed_snake.truley_cursed import global_state
 def direction_reader() -> Iterable[Direction]:
     while True:
         if global_state.last_request is None:
-            time.sleep(1)
+            time.sleep(0.2)
         else:
             yield global_state.last_request
 

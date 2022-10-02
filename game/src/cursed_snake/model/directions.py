@@ -8,16 +8,16 @@ def _offset(coord: Coordinate, x_offset: int, y_offset: int) -> Coordinate:
 
 def west(coord: Coordinate) -> Coordinate:
     print(coord)
-    return _offset(coord, -1, 0)
+    return _offset(coord, 0, -1)
 
 
 def east(coord: Coordinate) -> Coordinate:
-    return _offset(coord, +1, 0)
-
-
-def north(coord: Coordinate) -> Coordinate:
     return _offset(coord, 0, +1)
 
 
+def north(coord: Coordinate) -> Coordinate:
+    return _offset(coord, -1, 0)
+
+
 def south(coord: Coordinate) -> Coordinate:
-    return _offset(coord, 0, -1)
+    return _offset(coord, +1, 0)
