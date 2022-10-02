@@ -9,7 +9,3 @@ def main() -> None:
     for task in tasks:
         thread = threading.Thread(target=task)
         thread.start()
-
-
-if __name__ == '__main__':
-    main()
