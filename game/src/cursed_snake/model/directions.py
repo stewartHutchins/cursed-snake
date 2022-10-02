@@ -7,7 +7,6 @@ def _offset(coord: Coordinate, x_offset: int, y_offset: int) -> Coordinate:
 
 
 def west(coord: Coordinate) -> Coordinate:
-    print(coord)
     return _offset(coord, 0, -1)
 
 
