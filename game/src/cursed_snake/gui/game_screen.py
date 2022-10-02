@@ -33,6 +33,7 @@ def _snake_to_heatmap(snake: Snake, food: Coordinate, x_limit: Position, y_limit
 
 def draw_board(snake: Snake, food: Food, *, ax: plt.Axes) -> plt.Axes:
     initial_heatmap = _snake_to_heatmap(snake, food, MAX_X+1, MAX_Y+1)
+    ax.cla()
     return sns.heatmap(initial_heatmap, ax=ax, cbar=False)
 
 
