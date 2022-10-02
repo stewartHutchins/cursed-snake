@@ -4,10 +4,10 @@ from random import random
 
 from typing import Iterable, Iterator, Callable
 
-from cursed_snake.model.board import move_snake, move_with_wrap
+from cursed_snake.model.board import move_snake, move_with_wrap, grow_snake_with_wrap
 from cursed_snake.gui.game_screen import gui
 from cursed_snake.model.directions import south, east
-from cursed_snake.model.snake import create_starting_snake, grow_snake
+from cursed_snake.model.snake import create_starting_snake
 from cursed_snake.model.snake_types import Direction, Snake, Food, Position
 from cursed_snake.server import http_server
 from cursed_snake.settings import MIN_X, MAX_Y, MAX_X, MIN_Y
@@ -30,10 +30,12 @@ def update_game_frame(
 ) -> tuple[Snake, Food]:
     head, _ = current_snake
     new_head_pos = direction(head)
+    x_limits = (MIN_X, MAX_X)
+    y_limits = (MIN_Y, MAX_Y)
     if new_head_pos == current_food:
-        return grow_snake(current_snake, direction), next(food_generator)
+        return grow_snake_with_wrap(current_snake, direction, x_limits, y_limits), next(food_generator)
     else:
-        return move_with_wrap(current_snake, direction, (MIN_X, MAX_X), (MIN_Y, MAX_Y)), current_food
+        return move_with_wrap(current_snake, direction, x_limits, y_limits), current_food
 
 
 def _game_frames(
@@ -76,8 +78,10 @@ def psudo_directions() -> Iterator[Direction]:
         repeat(east, 100)
     )
 
-def psudo_food()-> Iterator[Food]:
-    return chain([(10, 5), (30, 20)], repeat((10, 5)))
+
+def psudo_food() -> Iterator[Food]:
+    return chain([(10, 5), (30, 20), (30, 50)], repeat((10, 5)))
+
 
 if __name__ == '__main__':
     run_game_loop(psudo_directions, psudo_food)
