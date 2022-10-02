@@ -8,14 +8,15 @@ from cursed_snake.gui.game_screen import gui
 from cursed_snake.model.snake import create_starting_snake
 from cursed_snake.model.snake_types import Direction, Snake, Food
 from cursed_snake.server import http_server
+from cursed_snake.truley_cursed import global_state
 
 
 def direction_reader() -> Iterable[Direction]:
     while True:
-        if http_server.last_request is None:
+        if global_state.last_request is None:
             time.sleep(1)
         else:
-            yield http_server.last_request
+            yield global_state.last_request
 
 
 def run_game_loop() -> None:

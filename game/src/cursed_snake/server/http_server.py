@@ -18,6 +18,7 @@ def func() -> str:
                        "y-": south,
                        "x-": west
                    }.get(user_input) or global_state.last_request
+    print(global_state.last_request)
     return "it's someone else's problem now"
 
 
