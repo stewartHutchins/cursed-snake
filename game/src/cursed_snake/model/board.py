@@ -4,6 +4,18 @@ from cursed_snake.model.snake import move_snake
 from cursed_snake.model.snake_types import Coordinate, Snake, Direction, Head, Position
 
 
+def grow_snake_with_wrap(
+        snake: Snake,
+        direction: Direction,
+        x_limits: tuple[Position, Position],
+        y_limits: tuple[Position, Position]
+) -> Snake:
+    head, tail = snake
+    new_head = _wrap_snake_head(direction(head), x_limits, y_limits)
+    new_tail = [head] + tail
+    return new_head, new_tail
+
+
 def move_with_wrap(
         snake: Snake,
         direction: Direction,
