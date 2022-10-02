@@ -4,15 +4,16 @@ from cursed_snake.model.snake import move_snake
 from cursed_snake.model.snake_types import Coordinate, Snake, Direction, Head, Position
 
 
-def define_board_limits() -> tuple[tuple[Position, Position], tuple[Position, Position]]:
-    return (_MIN_X, _MAX_X), (_MIN_Y, _MAX_Y)
-
-
-def move_on_board(snake: Snake, direction: Direction) -> Snake:
+def move_with_wrap(
+        snake: Snake,
+        direction: Direction,
+        x_limits: tuple[Position, Position],
+        y_limits: tuple[Position, Position]
+) -> Snake:
     unwrapped_snake: Snake = move_snake(snake, direction)
     head, tail = unwrapped_snake
-    wrapped_snake: Snake = _wrap_snake_head(head, (_MIN_X, _MAX_X), (_MIN_Y, _MAX_Y))
-    return wrapped_snake
+    wrapped_snake: Head = _wrap_snake_head(head, x_limits, y_limits)
+    return wrapped_snake, tail
 
 
 def _wrap_snake_head(head: Head, x_limits: tuple[Position, Position], y_limits: tuple[Position, Position]) -> Head:
