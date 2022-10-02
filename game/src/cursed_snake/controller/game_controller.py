@@ -1,6 +1,6 @@
 import time
 from itertools import accumulate
-from random import random
+from random import randint 
 
 from typing import Iterable, Iterator, Callable
 
@@ -67,7 +67,7 @@ def _game_frames(
 
 def _food_generator(x_limits: tuple[Position, Position], y_limits: tuple[Position, Position]) -> Iterator[Food]:
     while True:
-        yield random.randint(*x_limits), random.randint(*y_limits),
+        yield randint(*x_limits), randint(*y_limits),
 
 
 def run_game_loop(
